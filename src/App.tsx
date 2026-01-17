@@ -1,11 +1,18 @@
-import React, { useState } from 'react';
-import { Github, Instagram, Linkedin, Twitter, Mail, Briefcase, User } from 'lucide-react';
+import { useState } from 'react';
+import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Github, Instagram, Linkedin, Twitter, FolderOpen, Briefcase, User } from 'lucide-react';
 import { Work } from './components/Work';
 import { About } from './components/About';
-import { Contact } from './components/Contact';
+import { Projects } from './components/Projects';
+import { ProjectPage } from './components/ProjectPage';
 
-function App() {
+function HomePage() {
   const [activeSection, setActiveSection] = useState<string | null>(null);
+  const navigate = useNavigate();
+
+  const handleProjectsClick = () => {
+    navigate('/projects');
+  };
 
   return (
     <div className="min-h-screen bg-black brutalist-grid">
@@ -76,7 +83,7 @@ function App() {
                 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-black leading-tight"
                 style={{ fontFamily: "'Archivo Black', 'Impact', sans-serif" }}
               >
-                SOFTWARE ENGINEER
+                BACKEND ENGINEER
               </h2>
             </div>
 
@@ -84,16 +91,24 @@ function App() {
             <div className="max-w-3xl space-y-4 md:space-y-6">
               <div className="bg-gray-800 border-l-4 md:border-l-8 border-yellow-400 p-4 md:p-8">
                 <p className="text-sm md:text-lg lg:text-xl text-gray-200 leading-relaxed" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-                  Avid developer interested in architecting scalable backend systems.<br/> <span className="text-yellow-400 font-bold">3+ years</span> building APIs, distributed services, and automated workflows in <span className="text-yellow-400 font-bold">Python</span> (Django / FastAPI), currently expanding into <span className="text-yellow-400 font-bold">Go</span> with small projects.
+                  Spain-based developer interested in architecting scalable backend systems.<br/> <span className="text-yellow-400 font-bold">3+ years</span> building APIs, distributed services, and automated workflows in <span className="text-yellow-400 font-bold">Python</span> (Django / FastAPI). Genuinely curious.
                 </p>
               </div>
 
               <div className="bg-gray-900 border-4 border-gray-600 p-4 md:p-8">
-                <p className="text-xs md:text-base text-gray-300 leading-relaxed mb-4" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-                  Currently finishing my first personal project and getting it published in the App Store. Also, 3h 41min marathoner.
+              <p className="text-xs md:text-base text-gray-300 leading-relaxed mb-4" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+                  Just finished v1.0 of my first personal project,{' '}
+                  <a
+                    href="https://apps.apple.com/es/app/stark-ltd/id6749888405"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-yellow-400 font-bold border-b-2 border-yellow-400 hover:bg-yellow-400 hover:text-black transition-all"
+                  >
+                    download the iOS app here
+                  </a>
+                  . Also, 3h 41min marathoner.
                 </p>
                 <div className="space-y-2 text-xs md:text-base">
-                  <p className="text-yellow-400 font-bold">→ Open to relocation in Europe</p>
                   <p className="text-yellow-400 font-bold">→ MSc in Distributed Computing</p>
                   <p className="text-yellow-400 font-bold">→ EN (C1) • ES (Native) • DE (B1)</p>
                 </div>
@@ -103,16 +118,16 @@ function App() {
             {/* Navigation buttons */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 pt-4 md:pt-8 max-w-5xl">
               <button
-                onClick={() => setActiveSection('Contact')}
+                onClick={handleProjectsClick}
                 className="bg-yellow-400 text-black border-4 md:border-8 border-black p-6 md:p-10 hover:bg-black hover:text-yellow-400 hover:border-yellow-400 transition-all harsh-shadow group"
               >
                 <div className="flex flex-col items-center gap-3 md:gap-4">
-                  <Mail size={36} strokeWidth={3} className="md:w-12 md:h-12" />
+                  <FolderOpen size={36} strokeWidth={3} className="md:w-12 md:h-12" />
                   <span
                     className="text-xl md:text-3xl font-black"
                     style={{ fontFamily: "'Bebas Neue', 'Impact', sans-serif" }}
                   >
-                    CONTACT
+                    PROJECTS
                   </span>
                 </div>
               </button>
@@ -199,8 +214,22 @@ function App() {
       {/* Sections */}
       {activeSection === 'Work' && <Work onClose={() => setActiveSection(null)} />}
       {activeSection === 'About' && <About onClose={() => setActiveSection(null)} />}
-      {activeSection === 'Contact' && <Contact onClose={() => setActiveSection(null)} />}
     </div>
+  );
+}
+
+function ProjectsPage() {
+  const navigate = useNavigate();
+  return <Projects onClose={() => navigate('/')} />;
+}
+
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/projects" element={<ProjectsPage />} />
+      <Route path="/projects/:slug" element={<ProjectPage />} />
+    </Routes>
   );
 }
 

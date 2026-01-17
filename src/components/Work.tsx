@@ -22,7 +22,7 @@ const projects: Project[] = [
     title: "Solving my own needs",
     company: "Stark",
     role: "Solo developer",
-    description: "My first ever personal project: a fitness app to track your progress in the gym. I used to track everything with a spreadsheet my coach would send me, now we use my app. Kinda neat.",
+    description: "My first ever personal project: a fitness app to track your progress in the gym. I used to track everything with a spreadsheet my coach would send me. Now we use my app. Kinda neat.",
     link: "https://stark-app.com",
     tags: ["React", "Django", "OAuth 2.0", "PostgreSQL", "VPS"]
   },
