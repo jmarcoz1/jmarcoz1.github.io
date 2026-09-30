@@ -105,15 +105,24 @@ export function ProjectArtwork({ project }: { project: Project }) {
 function ProjectVisual({ project }: { project: Project }) {
   if (!project.screenshots?.length) return <ProjectArtwork project={project} />;
 
-  const screenshots = project.screenshots.slice(0, 2);
+  // Wide desktop screenshots do not pair up inside a card, so they show one.
+  const isWindow = project.screenshotShape === 'window';
+  const screenshots = project.screenshots.slice(0, isWindow ? 1 : 2);
 
   return (
-    <div className={`artwork screenshot-artwork screenshot-artwork-${project.slug}`} aria-label={`${project.title} app screenshots`}>
-      {screenshots.map((screenshot, index) => (
-        <figure className={`screenshot-device screenshot-device-${index + 1}`} key={screenshot.src}>
-          <img src={screenshot.src} alt={screenshot.alt} loading="lazy" />
-        </figure>
-      ))}
+    <div
+      className={`artwork screenshot-artwork screenshot-artwork-${project.slug}${isWindow ? ' screenshot-artwork-window' : ''}`}
+      aria-label={`${project.title} app screenshots`}
+    >
+      {screenshots.map((screenshot, index) =>
+        isWindow ? (
+          <img className="screenshot-window" src={screenshot.src} alt={screenshot.alt} loading="lazy" key={screenshot.src} />
+        ) : (
+          <figure className={`screenshot-device screenshot-device-${index + 1}`} key={screenshot.src}>
+            <img src={screenshot.src} alt={screenshot.alt} loading="lazy" />
+          </figure>
+        ),
+      )}
     </div>
   );
 }

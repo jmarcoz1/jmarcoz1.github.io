@@ -21,7 +21,12 @@ export function ProjectPage() {
     <main className="project-page page-width">
       <Link to="/" className="back-link"><ArrowLeft size={15} /> All projects</Link>
       {project.screenshots?.length ? (
-        <div className="screenshot-gallery" role="region" tabIndex={0} aria-label={`${project.title} app screenshots`}>
+        <div
+          className={`screenshot-gallery${project.screenshotShape === 'window' ? ' screenshot-gallery-window' : ''}`}
+          role="region"
+          tabIndex={0}
+          aria-label={`${project.title} app screenshots`}
+        >
           {project.screenshots.map((screenshot) => (
             <figure key={screenshot.src}>
               <div className="detail-screenshot-frame">

@@ -7,6 +7,8 @@ export interface Project {
   description: string[];
   tags: string[];
   status?: 'in-progress' | 'released' | 'planning';
+  /** 'phone' (default) frames tall app screenshots; 'window' frames wide desktop ones. */
+  screenshotShape?: 'phone' | 'window';
   screenshots?: {
     src: string;
     alt: string;
@@ -174,10 +176,34 @@ export const projects: Project[] = [
     description: [
       'Drop a .nds file. The app detects the title, indexes Pokémon, trainers, and wild areas, and lets you edit, undo, and export. Nothing is uploaded. The engine is Rust compiled to WebAssembly; the shell is a web app.',
       'Platinum is the working vertical slice — Spanish Europe (CPUS) is the cart I verify against. Other titles detect and export; editors stay off until a layout exists.',
+      'The hard part is the screen, not the file format. There is an enormous amount of data to show: one Pokémon alone is several screens of fields, and there are hundreds of them, plus every move, trainer and map. It is hard to fit visually, and I am still working on it.',
       'Project files store diffs and hashes, not the game. Bring your own dump. This is a tool I wanted as a kid and could not have built then.',
     ],
     tags: ['Rust', 'WebAssembly', 'TypeScript', 'NDS'],
     status: 'in-progress',
+    screenshotShape: 'window',
+    screenshots: [
+      {
+        src: './screenshots/pokeweb-species.jpg',
+        alt: 'Pokeweb editing the base stats, types and abilities of one Pokémon, with the breeding, evolution and move sections collapsed',
+        caption: 'Base stats for one Pokémon',
+      },
+      {
+        src: './screenshots/pokeweb-moves-tms.jpg',
+        alt: 'Pokeweb showing a Pokémon’s level-up moves and a grid of TMs and HMs, with the ones it can learn highlighted',
+        caption: 'The same Pokémon, further down: moves, TMs and HMs',
+      },
+      {
+        src: './screenshots/pokeweb-move.jpg',
+        alt: 'Pokeweb move editor for Thunder showing power, accuracy, PP, category, target and flags',
+        caption: 'A single move',
+      },
+      {
+        src: './screenshots/pokeweb-events.jpg',
+        alt: 'Pokeweb events screen with the new-game start position, an in-game trade and honey tree Pokémon',
+        caption: 'World events: starts, trades, honey trees',
+      },
+    ],
   },
   {
     id: 'inkpair',
